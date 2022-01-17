@@ -37,7 +37,11 @@ def get_args():
                         help="For both VOC2007 and 2012, you could choose 3 different datasets: train, trainval and val. Additionally, for VOC2007, you could also pick the dataset name test")
     parser.add_argument("--year", type=str, default="2012", help="The year of dataset (2007 or 2012)")
     parser.add_argument("--data_path", type=str, default="data/VOCdevkit", help="the root folder of dataset")
-    parser.add_argument("--pre_trained_model_type", type=str, choices=["model", "params"], default="model")
+    parser.add_argument("--pre_trained_model_type", type=str, choices=["model", "params", "none"], default="none", 
+                        help="""If 'model', then program will load both model and parameters, 
+                                if 'params', then program will load state_dict, 
+                                if 'none', then program will only build a yolo model without load 
+                                any parameters.""")
     parser.add_argument("--pre_trained_model_path", type=str, default="trained_models/whole_model_trained_yolo_voc")
     parser.add_argument("--log_path", type=str, default="tensorboard/yolo_voc")
     parser.add_argument("--saved_path", type=str, default="trained_models")
@@ -72,9 +76,11 @@ def train(opt):
     if torch.cuda.is_available():
         if opt.pre_trained_model_type == "model":
             model = torch.load(opt.pre_trained_model_path)
-        else:
+        elif opt.pre_trained_model_type == "params":
             model = Yolo(training_set.num_classes)
             model.load_state_dict(torch.load(opt.pre_trained_model_path))
+        else:
+            model = Yolo(training_set.num_classes)
     else:
         if opt.pre_trained_model_type == "model":
             model = torch.load(opt.pre_trained_model_path, map_location=lambda storage, loc: storage)
