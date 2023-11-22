@@ -165,4 +165,5 @@ Some output predictions for experiments for each dataset are shown below:
 - **COCO2014+2017**
 
 <img src="demo/coco2014_2017_1.jpg" width="280"> <img src="demo/coco2014_2017_2.jpg" width="280"> <img src="demo/coco2014_2017_3.jpg" width="280">
-w
+
+The results suggests that the model is capable of recognizing and detecting objects successfully, as evidenced by the provided visual results and test scenarios on different datasets. However, for a more detailed understanding of the model's performance, it's important to review the upcoming mAP statistics and potentially explore additional metrics or qualitative assessments.
