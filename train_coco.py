@@ -45,10 +45,9 @@ def get_args():
 
 
 def train(opt):
-    if torch.cuda.is_available():
-        torch.cuda.manual_seed(123)
-    else:
-        torch.manual_seed(123)
+     torch.cuda.manual_seed_all(123) 
+    if torch.cuda.is_available() 
+    else torch.manual_seed(123)
     learning_rate_schedule = {"0": 1e-5, "5": 1e-4,
                               "80": 1e-5, "110": 1e-6}
     training_params = {"batch_size": opt.batch_size,
